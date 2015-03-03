@@ -1,0 +1,37 @@
+{
+  "name": "fault",
+  "main": "fault.js",
+  "description": "Functional errors with formatted output",
+  "license": "MIT",
+  "keywords": [
+    "error",
+    "exception",
+    "printf",
+    "sprintf",
+    "vsprintf",
+    "format",
+    "string"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/fault.git"
+  },
+  "authors": [
+    "Titus Wormer <tituswormer@gmail.com>"
+  ],
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "build.js",
+    "example.js",
+    "index.js",
+    "test.js",
+    "component.json",
+    "package.json"
+  ]
+}

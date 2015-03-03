@@ -1,0 +1,51 @@
+{
+  "name": "fault",
+  "version": "0.1.0",
+  "description": "Functional errors with formatted output",
+  "license": "MIT",
+  "keywords": [
+    "error",
+    "exception",
+    "printf",
+    "sprintf",
+    "vsprintf",
+    "format",
+    "string"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/fault.git"
+  },
+  "dependencies": {
+    "format": "^0.2.1"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com>",
+  "devDependencies": {
+    "browserify": "^9.0.0",
+    "eslint": "^0.15.0",
+    "esmangle": "^1.0.0",
+    "istanbul": "^0.3.0",
+    "jscs": "^1.0.0",
+    "jscs-jsdoc": "^0.4.0",
+    "mdast": "^0.8.0",
+    "mdast-usage": "^0.1.0",
+    "mocha": "^2.0.0"
+  },
+  "scripts": {
+    "test-api": "_mocha --check-leaks test.js",
+    "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test.js",
+    "test-coverage": "istanbul cover _mocha -- --check-leaks test.js",
+    "test-travis": "npm run test-coveralls",
+    "test": "npm run test-api",
+    "lint-api": "eslint index.js",
+    "lint-test": "eslint --env mocha test.js",
+    "lint-style": "jscs --reporter inline index.js test.js",
+    "lint": "npm run lint-api && npm run lint-test && npm run lint-style",
+    "make": "npm run lint && npm run test-coverage",
+    "build-usage": "mdast --use mdast-usage Readme.md -o Readme.md",
+    "bundle": "browserify index.js -s fault > fault.js",
+    "postbundle": "esmangle fault.js > fault.min.js",
+    "build": "npm run build-usage && npm run bundle",
+    "prepublish": "npm run build"
+  }
+}
