@@ -3,39 +3,32 @@
 
 var formatter = require('format');
 
-/**
- * Create a new `ErrorConstructor`, with the formatted
- * `format` as a first argument.
- *
- * @param {Function} ErrorConstructor
- * @return {function(string, ...*): Error}
- */
-function create(ErrorConstructor) {
-    /**
-     * @param {string?} format
-     * @return {ErrorConstructor} - Instance of `ErrorConstructor`.
-     */
-    return function (format) {
-        if (format) {
-            format = formatter.apply(null, arguments);
-        }
+module.exports = exports = create(Error);
 
-        return new ErrorConstructor(format);
-    };
+exports.eval = create(EvalError);
+exports.range = create(RangeError);
+exports.reference = create(ReferenceError);
+exports.syntax = create(SyntaxError);
+exports.type = create(TypeError);
+exports.uri = create(URIError);
+
+exports.create = create;
+
+/* Create a new `EConstructor`, with the formatted
+ * `format` as a first argument. */
+function create(EConstructor) {
+  FormattedError.displayName = EConstructor.displayName || EConstructor.name;
+
+  return FormattedError;
+
+  function FormattedError(format) {
+    if (format) {
+      format = formatter.apply(null, arguments);
+    }
+
+    return new EConstructor(format);
+  }
 }
-
-var error = create(Error);
-
-error.eval = create(EvalError);
-error.range = create(RangeError);
-error.reference = create(ReferenceError);
-error.syntax = create(SyntaxError);
-error.type = create(TypeError);
-error.uri = create(URIError);
-
-error.create = create;
-
-module.exports = error;
 
 },{"format":2}],2:[function(require,module,exports){
 //
@@ -89,12 +82,16 @@ module.exports = error;
       , c
       , escaped = false
       , arg
+      , tmp
+      , leadingZero = false
       , precision
       , nextArg = function() { return args[argIndex++]; }
       , slurpNumber = function() {
           var digits = '';
-          while (fmt[i].match(/\d/))
+          while (/\d/.test(fmt[i])) {
             digits += fmt[i++];
+            c = fmt[i];
+          }
           return digits.length > 0 ? parseInt(digits) : null;
         }
       ;
@@ -102,6 +99,18 @@ module.exports = error;
       c = fmt[i];
       if (escaped) {
         escaped = false;
+        if (c == '.') {
+          leadingZero = false;
+          c = fmt[++i];
+        }
+        else if (c == '0' && fmt[i + 1] == '.') {
+          leadingZero = true;
+          i += 2;
+          c = fmt[i];
+        }
+        else {
+          leadingZero = true;
+        }
         precision = slurpNumber();
         switch (c) {
         case 'b': // number in binary
@@ -118,7 +127,11 @@ module.exports = error;
           result += parseInt(nextArg(), 10);
           break;
         case 'f': // floating point number
-          result += parseFloat(nextArg()).toFixed(precision || 6);
+          tmp = String(parseFloat(nextArg()).toFixed(precision || 6));
+          result += leadingZero ? tmp : tmp.replace(/^0/, '');
+          break;
+        case 'j': // JSON
+          result += JSON.stringify(nextArg());
           break;
         case 'o': // number in octal
           result += '0' + parseInt(nextArg(), 10).toString(8);

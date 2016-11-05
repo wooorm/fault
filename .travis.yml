@@ -1,15 +1,22 @@
 language: node_js
-script: npm run-script test-travis
 node_js:
-- '0.10'
-- '0.11'
-- '0.12'
-- iojs
-after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+- '4.0'
+- '7.0'
+after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
-  provider: npm
-  email: tituswormer@gmail.com
-  api_key:
-    secure: JF0cqfVZSrWSEkVU/Acn/qTaCtmmXuQR9B6qu05ogbxjuy9aP652RtrUJTyihP3izeRBfdPhP9px41fvWZNwebQE9VC6aSCkgqTN9sgssNpLYkXCCe0GdDR+w8CLHWYHRQfAab25VWVg2jxT/s377bzU8cpRKcaKXer/HK+rMlY=
-  on:
-    repo: wooorm/fault
+  - provider: npm
+    email: tituswormer@gmail.com
+    api_key:
+      secure: ckZSdQwfzyGtWCukRsbdLapWWQ2sGLLa2n6OX2tJO9lrd78ZIOIhfD/sjiuBZgRpHjib4fLdFQaifmV7gySYhIYZ70orAgpuUBtZG9bOqsb1Lk4Mdtb2VAGxYxKs1utpxSzQEsKjyA4rD+DVpp1jZ/A26ipAfKo/scj2PSZwGy8=
+    on:
+      tags: true
+      node: '4.0'
+  - provider: releases
+    api_key:
+      secure: PqrmrL8bDZSl/L2vgUF6fyeIBKjvQzG4HP2UfdjaBouk9V9zzQjFYz+9qbt5hdoUeDev8hHaBbWnSuj9xY89yog5IkohHwWW85TXpyFipG7FNGBxZH3GUwlQCzYGOPVqXfk12rWx2CsKs27r4jdo2GhbyifHT5EpzvzW9r2d/T0=
+    file:
+      - "fault.js"
+      - "fault.min.js"
+    on:
+      tags: true
+      node: '7.0'

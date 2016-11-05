@@ -1,120 +1,108 @@
 'use strict';
 
-/*
- * Dependencies.
- */
-
+/* Dependencies. */
+var test = require('tape');
 var fault = require('./');
-var assert = require('assert');
 
-/*
- * Tests.
- */
+/* Tests. */
+test('fault(format?[, values...])', function (t) {
+  t.ok(fault() instanceof Error, 'should give an error');
 
-describe('fault(format?[, values...])', function () {
-    it('should give an error', function () {
-        assert(fault() instanceof Error);
-    });
+  t.throws(
+    function () {
+      throw fault();
+    },
+    /^Error$/,
+    'should give a valid error without arguments'
+  );
 
-    it('should give a valid error without arguments', function () {
-        assert.throws(function () {
-            throw fault();
-        }, /^Error$/);
-    });
+  t.throws(
+    function () {
+      throw fault(null);
+    },
+    /^Error: null$/,
+    'should give a valid error when format is not a string'
+  );
 
-    it('should give a valid error when format is not a string', function () {
-        assert.throws(function () {
-            throw fault(null);
-        }, /^Error: null$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello Eric!');
+    },
+    /^Error: Hello Eric!$/,
+    'should give a valid error when format is a string'
+  );
 
-    it('should give a valid error when format is a string', function () {
-        assert.throws(function () {
-            throw fault('Hello Eric!');
-        }, /^Error: Hello Eric!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello Eric!');
+    },
+    /^Error: Hello Eric!$/,
+    'should give a valid error when format is a string'
+  );
 
-    it('should give a valid error when format is a string', function () {
-        assert.throws(function () {
-            throw fault('Hello Eric!');
-        }, /^Error: Hello Eric!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %s!', 'Eric');
+    },
+    /^Error: Hello Eric!$/,
+    'should format a string'
+  );
 
-    it('should format a string', function () {
-        assert.throws(function () {
-            throw fault('Hello %s!', 'Eric');
-        }, /^Error: Hello Eric!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %b!', 2);
+    },
+    /^Error: Hello 10!$/,
+    'should format a binary'
+  );
 
-    it('should format a binary', function () {
-        assert.throws(function () {
-            throw fault('Hello %b!', 2);
-        }, /^Error: Hello 10!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %c!', 64);
+    },
+    /^Error: Hello @!$/,
+    'should format a character'
+  );
 
-    it('should format a character', function () {
-        assert.throws(function () {
-            throw fault('Hello %c!', 64);
-        }, /^Error: Hello @!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %f!', Math.PI);
+    },
+    /^Error: Hello 3\.141593!$/,
+    'should format a float'
+  );
 
-    it('should format a float', function () {
-        assert.throws(function () {
-            throw fault('Hello %f!', Math.PI);
-        }, /^Error: Hello 3\.141593!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %d!', 0x12);
+    },
+    /^Error: Hello 18!$/,
+    'should format a decimal'
+  );
 
-    it('should format a decimal', function () {
-        assert.throws(function () {
-            throw fault('Hello %d!', 0x12);
-        }, /^Error: Hello 18!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %o!', 9);
+    },
+    /^Error: Hello 011!$/,
+    'should format an octal'
+  );
 
-    it('should format an octal', function () {
-        assert.throws(function () {
-            throw fault('Hello %o!', 9);
-        }, /^Error: Hello 011!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %x!', 255);
+    },
+    /^Error: Hello 0xff!$/,
+    'should format a lowercase hexadecimal'
+  );
 
-    it('should format a lowercase hexadecimal', function () {
-        assert.throws(function () {
-            throw fault('Hello %x!', 255);
-        }, /^Error: Hello 0xff!$/);
-    });
+  t.throws(
+    function () {
+      throw fault('Hello %X!', 255);
+    },
+    /^Error: Hello 0xFF!$/,
+    'should format an uppercase hexadecimal'
+  );
 
-    it('should format an uppercase hexadecimal', function () {
-        assert.throws(function () {
-            throw fault('Hello %X!', 255);
-        }, /^Error: Hello 0xFF!$/);
-    });
-});
-
-describe('fault.type(format?[, values...])', function () {
-    it('should give an error', function () {
-        assert(fault.type() instanceof TypeError);
-    });
-
-    it('should give a valid error without arguments', function () {
-        assert.throws(function () {
-            throw fault.type();
-        }, /^TypeError$/);
-    });
-
-    it('should give a valid error when format is not a string', function () {
-        assert.throws(function () {
-            throw fault.type(null);
-        }, /^TypeError: null$/);
-    });
-
-    it('should give a valid error when format is a string', function () {
-        assert.throws(function () {
-            throw fault.type('Hello Eric!');
-        }, /^TypeError: Hello Eric!$/);
-    });
-
-    it('should give a valid error when format is a string', function () {
-        assert.throws(function () {
-            throw fault.type('Hello Eric!');
-        }, /^TypeError: Hello Eric!$/);
-    });
+  t.end();
 });

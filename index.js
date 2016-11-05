@@ -2,36 +2,29 @@
 
 var formatter = require('format');
 
-/**
- * Create a new `ErrorConstructor`, with the formatted
- * `format` as a first argument.
- *
- * @param {Function} ErrorConstructor
- * @return {function(string, ...*): Error}
- */
-function create(ErrorConstructor) {
-    /**
-     * @param {string?} format
-     * @return {ErrorConstructor} - Instance of `ErrorConstructor`.
-     */
-    return function (format) {
-        if (format) {
-            format = formatter.apply(null, arguments);
-        }
+module.exports = exports = create(Error);
 
-        return new ErrorConstructor(format);
-    };
+exports.eval = create(EvalError);
+exports.range = create(RangeError);
+exports.reference = create(ReferenceError);
+exports.syntax = create(SyntaxError);
+exports.type = create(TypeError);
+exports.uri = create(URIError);
+
+exports.create = create;
+
+/* Create a new `EConstructor`, with the formatted
+ * `format` as a first argument. */
+function create(EConstructor) {
+  FormattedError.displayName = EConstructor.displayName || EConstructor.name;
+
+  return FormattedError;
+
+  function FormattedError(format) {
+    if (format) {
+      format = formatter.apply(null, arguments);
+    }
+
+    return new EConstructor(format);
+  }
 }
-
-var error = create(Error);
-
-error.eval = create(EvalError);
-error.range = create(RangeError);
-error.reference = create(ReferenceError);
-error.syntax = create(SyntaxError);
-error.type = create(TypeError);
-error.uri = create(URIError);
-
-error.create = create;
-
-module.exports = error;
