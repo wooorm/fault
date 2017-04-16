@@ -2,16 +2,18 @@
 
 var formatter = require('format');
 
-module.exports = exports = create(Error);
+var fault = create(Error);
 
-exports.eval = create(EvalError);
-exports.range = create(RangeError);
-exports.reference = create(ReferenceError);
-exports.syntax = create(SyntaxError);
-exports.type = create(TypeError);
-exports.uri = create(URIError);
+module.exports = fault;
 
-exports.create = create;
+fault.eval = create(EvalError);
+fault.range = create(RangeError);
+fault.reference = create(ReferenceError);
+fault.syntax = create(SyntaxError);
+fault.type = create(TypeError);
+fault.uri = create(URIError);
+
+fault.create = create;
 
 /* Create a new `EConstructor`, with the formatted
  * `format` as a first argument. */
