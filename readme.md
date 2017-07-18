@@ -22,14 +22,8 @@ Yields:
 
 ```text
 Error: Hello Eric!
-    at ~/fault/index.js:22:16
-    at Object.<anonymous> (~/fault/example.js-tmp:4:13)
-    at Module._compile (module.js:460:26)
-    at Object.Module._extensions..js (module.js:478:10)
-    at Module.load (module.js:355:32)
-    at Function.Module._load (module.js:310:12)
-    at Module.require (module.js:365:17)
-    at require (module.js:384:17)
+    at FormattedError (~/node_modules/fault/index.js:30:12)
+    at Object.<anonymous> (~/example.js:3:7)
     ...
 ```
 
@@ -45,15 +39,8 @@ Yields:
 
 ```text
 TypeError: Who doesn’t like 3.141593? 🍰
-    at Function.<anonymous> (~/fault/index.js:22:16)
-    at Object.<anonymous> (~/fault/example.js-tmp:10:18)
-    at Module._compile (module.js:460:26)
-    at Object.Module._extensions..js (module.js:478:10)
-    at Module.load (module.js:355:32)
-    at Function.Module._load (module.js:310:12)
-    at Module.require (module.js:365:17)
-    at require (module.js:384:17)
-    ...
+    at Function.FormattedError [as type] (~/node_modules/fault/index.js:30:12)
+    at Object.<anonymous> (~/example.js:3:7)
 ```
 
 ## API
@@ -64,22 +51,22 @@ Create an error with a printf-like formatted message.
 
 ###### Parameters
 
-*   `format` (`string`, optional);
-*   `values` (`*`, optional).
+*   `format` (`string`, optional)
+*   `values` (`*`, optional)
 
 ###### Formatters
 
-*   `%s` — String;
-*   `%b` — Binary;
-*   `%c` — Character;
-*   `%d` — Decimal;
-*   `%f` — Floating point;
-*   `%o` — Octal;
-*   `%x` — Lowercase hexadecimal;
-*   `%X` — Uppercase hexadecimal;
-*   `%` followed by any other character, prints that character.
+*   `%s` — String
+*   `%b` — Binary
+*   `%c` — Character
+*   `%d` — Decimal
+*   `%f` — Floating point
+*   `%o` — Octal
+*   `%x` — Lowercase hexadecimal
+*   `%X` — Uppercase hexadecimal
+*   `%` followed by any other character, prints that character
 
-See [samsonjs/format][fmt] for argument parsing.
+See [`samsonjs/format`][fmt] for argument parsing.
 
 ###### Returns
 
@@ -87,12 +74,12 @@ An instance of [Error][].
 
 ###### Other errors
 
-*   `fault.eval(format?[, values...])` — [EvalError][];
-*   `fault.range(format?[, values...])` — [RangeError][];
-*   `fault.reference(format?[, values...])` — [ReferenceError][];
-*   `fault.syntax(format?[, values...])` — [SyntaxError][];
-*   `fault.type(format?[, values...])` — [TypeError][];
-*   `fault.uri(format?[, values...])` — [URIError][].
+*   `fault.eval(format?[, values...])` — [EvalError][]
+*   `fault.range(format?[, values...])` — [RangeError][]
+*   `fault.reference(format?[, values...])` — [ReferenceError][]
+*   `fault.syntax(format?[, values...])` — [SyntaxError][]
+*   `fault.type(format?[, values...])` — [TypeError][]
+*   `fault.uri(format?[, values...])` — [URIError][]
 
 #### `fault.create(Constructor)`
 
