@@ -27,9 +27,9 @@
   "devDependencies": {
     "browserify": "^14.0.0",
     "esmangle": "^1.0.0",
-    "nyc": "^10.0.0",
+    "nyc": "^11.0.0",
     "remark-cli": "^3.0.0",
-    "remark-preset-wooorm": "^2.0.0",
+    "remark-preset-wooorm": "^3.0.0",
     "tape": "^4.0.0",
     "xo": "^0.18.0"
   },
@@ -39,7 +39,7 @@
     "build-mangle": "esmangle fault.js > fault.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
-    "test-api": "node test.js",
+    "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
   },
@@ -57,6 +57,8 @@
     ]
   },
   "remarkConfig": {
-    "plugins": ["preset-wooorm"]
+    "plugins": [
+      "preset-wooorm"
+    ]
   }
 }
