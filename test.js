@@ -1,10 +1,8 @@
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var fault = require('./');
 
-/* Tests. */
 test('fault(format?[, values...])', function (t) {
   t.ok(fault() instanceof Error, 'should give an error');
 
