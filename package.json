@@ -12,7 +12,7 @@
     "format",
     "string"
   ],
-  "repository": "https://github.com/wooorm/fault",
+  "repository": "wooorm/fault",
   "bugs": "https://github.com/wooorm/fault/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
