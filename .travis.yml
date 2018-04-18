@@ -1,10 +1,11 @@
 language: node_js
 node_js:
-- '4.0'
-- '8.0'
+- lts/boron
+- node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: PqrmrL8bDZSl/L2vgUF6fyeIBKjvQzG4HP2UfdjaBouk9V9zzQjFYz+9qbt5hdoUeDev8hHaBbWnSuj9xY89yog5IkohHwWW85TXpyFipG7FNGBxZH3GUwlQCzYGOPVqXfk12rWx2CsKs27r4jdo2GhbyifHT5EpzvzW9r2d/T0=
   file:
@@ -12,4 +13,3 @@ deploy:
     - "fault.min.js"
   on:
     tags: true
-    node: '8.0'
