@@ -1,7 +1,7 @@
 'use strict';
 
 var test = require('tape');
-var fault = require('./');
+var fault = require('.');
 
 test('fault(format?[, values...])', function (t) {
   t.ok(fault() instanceof Error, 'should give an error');
