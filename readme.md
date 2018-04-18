@@ -13,9 +13,9 @@ npm install fault
 ## Usage
 
 ```js
-var fault = require('fault');
+var fault = require('fault')
 
-throw fault('Hello %s!', 'Eric');
+throw fault('Hello %s!', 'Eric')
 ```
 
 Yields:
@@ -30,9 +30,9 @@ Error: Hello Eric!
 Or, format a float in a type error:
 
 ```js
-var fault = require('fault');
+var fault = require('fault')
 
-throw fault.type('Who doesn’t like %f? \ud83c\udf70', Math.PI);
+throw fault.type('Who doesn’t like %f? \uD83C\uDF70', Math.PI)
 ```
 
 Yields:
