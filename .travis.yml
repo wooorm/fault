@@ -1,15 +1,15 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
   skip_cleanup: true
   api_key:
-    secure: PqrmrL8bDZSl/L2vgUF6fyeIBKjvQzG4HP2UfdjaBouk9V9zzQjFYz+9qbt5hdoUeDev8hHaBbWnSuj9xY89yog5IkohHwWW85TXpyFipG7FNGBxZH3GUwlQCzYGOPVqXfk12rWx2CsKs27r4jdo2GhbyifHT5EpzvzW9r2d/T0=
+    secure: I7ffcOkIXpKvTNoSYq2UZPPfF0Ky+WuDra4JGvez5unHX4mWmyGyFiEPE6scqzdlCp4Jp+jfFU8HHiRSunAtV/JTd42nLWhscSzaQINpWzQMOeIFMIfSR+Eywh3+vYKv8VjEmQKTWNRPjwcYfR85ykvoSIeh9UucrXcY2jmYPN8=
   file:
-    - "fault.js"
-    - "fault.min.js"
+    - 'fault.js'
+    - 'fault.min.js'
   on:
     tags: true
