@@ -15,8 +15,7 @@ fault.uri = create(URIError)
 
 fault.create = create
 
-/* Create a new `EConstructor`, with the formatted
- * `format` as a first argument. */
+// Create a new `EConstructor`, with the formatted `format` as a first argument.
 function create(EConstructor) {
   FormattedError.displayName = EConstructor.displayName || EConstructor.name
 
