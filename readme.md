@@ -105,7 +105,7 @@ errors.  Returns a function just like `fault`.
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
 [fmt]: https://github.com/samsonjs/format
 
