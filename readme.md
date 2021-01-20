@@ -99,9 +99,9 @@ Returns a function just like `fault`.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/fault.svg
+[build-badge]: https://github.com/wooorm/fault/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/wooorm/fault
+[build]: https://github.com/wooorm/fault/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/fault.svg
 
