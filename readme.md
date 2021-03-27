@@ -9,6 +9,9 @@ Functional errors with formatted output.
 
 ## Install
 
+This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
+instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -18,7 +21,7 @@ npm install fault
 ## Use
 
 ```js
-var fault = require('fault')
+import fault from 'fault'
 
 throw fault('Hello %s!', 'Eric')
 ```
@@ -35,7 +38,7 @@ Error: Hello Eric!
 Or, format a float in a type error:
 
 ```js
-var fault = require('fault')
+import fault from 'fault'
 
 throw fault.type('Who doesn’t like %f? \uD83C\uDF70', Math.PI)
 ```
@@ -50,7 +53,10 @@ TypeError: Who doesn’t like 3.141593? 🍰
 
 ## API
 
-### `fault(format?[, values...])`
+This package exports the following identifiers: `fault`, `create`.
+There is no default export.
+
+### `fault(format?[, values…])`
 
 Create an error with a printf-like formatted message.
 
@@ -79,14 +85,14 @@ An instance of [`Error`][error].
 
 ###### Other errors
 
-*   `fault.eval(format?[, values...])` — [EvalError][]
-*   `fault.range(format?[, values...])` — [RangeError][]
-*   `fault.reference(format?[, values...])` — [ReferenceError][]
-*   `fault.syntax(format?[, values...])` — [SyntaxError][]
-*   `fault.type(format?[, values...])` — [TypeError][]
-*   `fault.uri(format?[, values...])` — [URIError][]
+*   `fault.eval(format?[, values…])` — [EvalError][]
+*   `fault.range(format?[, values…])` — [RangeError][]
+*   `fault.reference(format?[, values…])` — [ReferenceError][]
+*   `fault.syntax(format?[, values…])` — [SyntaxError][]
+*   `fault.type(format?[, values…])` — [TypeError][]
+*   `fault.uri(format?[, values…])` — [URIError][]
 
-#### `fault.create(Constructor)`
+#### `create(Constructor)`
 
 Factory to create instances of `ErrorConstructor` with support for formatting.
 Used internally to wrap the global error constructors, exposed for custom

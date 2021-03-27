@@ -1,9 +1,7 @@
-'use strict'
+import test from 'tape'
+import {fault} from './index.js'
 
-var test = require('tape')
-var fault = require('.')
-
-test('fault(format?[, values...])', function (t) {
+test('fault(format?[, values…])', function (t) {
   t.ok(fault() instanceof Error, 'should give an error')
 
   t.throws(
