@@ -1,27 +1,37 @@
+// @ts-ignore
 import formatter from 'format'
 
-export var fault = create(Error)
+export var fault = Object.assign(create(Error), {
+  eval: create(EvalError),
+  range: create(RangeError),
+  reference: create(ReferenceError),
+  syntax: create(SyntaxError),
+  type: create(TypeError),
+  uri: create(URIError)
+})
 
-fault.eval = create(EvalError)
-fault.range = create(RangeError)
-fault.reference = create(ReferenceError)
-fault.syntax = create(SyntaxError)
-fault.type = create(TypeError)
-fault.uri = create(URIError)
-
-fault.create = create
-
-// Create a new `EConstructor`, with the formatted `format` as a first argument.
-export function create(EConstructor) {
-  FormattedError.displayName = EConstructor.displayName || EConstructor.name
+/**
+ * Create a new `EConstructor`, with the formatted `format` as a first argument.
+ *
+ * @template {Error} Fault
+ * @template {new (reason: string) => Fault} Class
+ * @param {Class} Constructor
+ */
+export function create(Constructor) {
+  /** @type {string} */
+  // @ts-ignore
+  FormattedError.displayName = Constructor.displayName || Constructor.name
 
   return FormattedError
 
-  function FormattedError(format) {
-    if (format) {
-      format = formatter(...arguments)
-    }
-
-    return new EConstructor(format)
+  /**
+   * @param {string} [format]
+   * @param {...unknown} values
+   * @returns {Fault}
+   */
+  function FormattedError(format, ...values) {
+    /** @type {string} */
+    var reason = format ? formatter(format, ...values) : format
+    return new Constructor(reason)
   }
 }
