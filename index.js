@@ -1,7 +1,7 @@
 // @ts-ignore
 import formatter from 'format'
 
-export var fault = Object.assign(create(Error), {
+export const fault = Object.assign(create(Error), {
   eval: create(EvalError),
   range: create(RangeError),
   reference: create(ReferenceError),
@@ -31,7 +31,7 @@ export function create(Constructor) {
    */
   function FormattedError(format, ...values) {
     /** @type {string} */
-    var reason = format ? formatter(format, ...values) : format
+    const reason = format ? formatter(format, ...values) : format
     return new Constructor(reason)
   }
 }
