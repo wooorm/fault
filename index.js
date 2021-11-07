@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error
 import formatter from 'format'
 
 export const fault = Object.assign(create(Error), {
@@ -19,13 +19,13 @@ export const fault = Object.assign(create(Error), {
  */
 export function create(Constructor) {
   /** @type {string} */
-  // @ts-ignore
+  // @ts-expect-error
   FormattedError.displayName = Constructor.displayName || Constructor.name
 
   return FormattedError
 
   /**
-   * @param {string} [format]
+   * @param {string|null} [format]
    * @param {...unknown} values
    * @returns {Fault}
    */
