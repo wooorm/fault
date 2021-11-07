@@ -25,8 +25,12 @@ export function create(Constructor) {
   return FormattedError
 
   /**
+   * Create an error with a printf-like formatted message.
+   *
    * @param {string|null} [format]
+   *   Template string.
    * @param {...unknown} values
+   *   Values to render in `format`.
    * @returns {Fault}
    */
   function FormattedError(format, ...values) {

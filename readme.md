@@ -7,21 +7,57 @@
 
 Functional errors with formatted output.
 
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`fault(format?[, values…])`](#faultformat-values)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package adds printf-like interpolation to errors.
+
+## When should I use this?
+
+This package useful when you frequently display parameters in error messages
+and manual string concatenation is becoming verbose.
+
 ## Install
 
-This package is ESM only: Node 12+ is needed to use it and it must be `import`ed
-instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install fault
 ```
 
+In Deno with [Skypack][]:
+
+```js
+import {fault} from 'https://cdn.skypack.dev/fault@2?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import {fault} from 'https://cdn.skypack.dev/fault@2?min'
+</script>
+```
+
 ## Use
 
 ```js
-import fault from 'fault'
+import {fault} from 'fault'
 
 throw fault('Hello %s!', 'Eric')
 ```
@@ -38,9 +74,9 @@ Error: Hello Eric!
 Or, format a float in a type error:
 
 ```js
-import fault from 'fault'
+import {fault} from 'fault'
 
-throw fault.type('Who doesn’t like %f? \uD83C\uDF70', Math.PI)
+throw fault.type('Who doesn’t like %f? 🍰', Math.PI)
 ```
 
 Yields:
@@ -53,7 +89,7 @@ TypeError: Who doesn’t like 3.141593? 🍰
 
 ## API
 
-This package exports the following identifiers: `fault`, `create`.
+This package exports the following identifiers: `fault` and `create`.
 There is no default export.
 
 ### `fault(format?[, values…])`
@@ -63,25 +99,29 @@ Create an error with a printf-like formatted message.
 ###### Parameters
 
 *   `format` (`string`, optional)
+    — template string
 *   `values` (`*`, optional)
-
-###### Formatters
-
-*   `%s` — String
-*   `%b` — Binary
-*   `%c` — Character
-*   `%d` — Decimal
-*   `%f` — Floating point
-*   `%o` — Octal
-*   `%x` — Lowercase hexadecimal
-*   `%X` — Uppercase hexadecimal
-*   `%` followed by any other character, prints that character
-
-See [`samsonjs/format`][fmt] for argument parsing.
+    — values to render in `format`
 
 ###### Returns
 
-An instance of [`Error`][error].
+An [`Error`][error] instance.
+
+###### Formatters
+
+The following formatters are supported in `format`:
+
+*   `%s` — string
+*   `%b` — binary
+*   `%c` — character
+*   `%d` — decimal
+*   `%f` — floating point
+*   `%o` — octal
+*   `%x` — lowercase hexadecimal
+*   `%X` — uppercase hexadecimal
+*   `%` followed by any other character, prints that character
+
+See [`samsonjs/format`][fmt] for argument parsing.
 
 ###### Other errors
 
@@ -95,9 +135,34 @@ An instance of [`Error`][error].
 #### `create(Constructor)`
 
 Factory to create instances of `ErrorConstructor` with support for formatting.
-Used internally to wrap the global error constructors, exposed for custom
+Used internally to wrap the global error constructors and exposed for custom
 errors.
 Returns a function just like `fault`.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+There are no extra exported types.
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+It also works in Deno and modern browsers.
+
+## Security
+
+This package is safe.
+
+## Related
+
+*   [`wooorm/bail`](https://github.com/wooorm/bail)
+    — throw if given an error
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
 
 ## License
 
@@ -123,9 +188,17 @@ Returns a function just like `fault`.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [license]: license
 
 [author]: https://wooorm.com
+
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[typescript]: https://www.typescriptlang.org
+
+[contribute]: https://opensource.guide/how-to-contribute/
 
 [fmt]: https://github.com/samsonjs/format
 
