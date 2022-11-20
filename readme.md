@@ -34,7 +34,7 @@ and manual string concatenation is becoming verbose.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+, 16.0+), install with [npm][]:
 
 ```sh
 npm install fault
@@ -89,7 +89,7 @@ TypeError: Who doesn’t like 3.141593? 🍰
 
 ## API
 
-This package exports the following identifiers: `fault` and `create`.
+This package exports the identifiers `fault` and `create`.
 There is no default export.
 
 ### `fault(format?[, values…])`
@@ -142,12 +142,12 @@ Returns a function just like `fault`.
 ## Types
 
 This package is fully typed with [TypeScript][].
-There are no extra exported types.
+It exports no additional types.
 
 ## Compatibility
 
 This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 It also works in Deno and modern browsers.
 
 ## Security
