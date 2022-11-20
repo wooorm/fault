@@ -1,10 +1,11 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {fault} from './index.js'
 
-test('fault(format?[, values…])', function (t) {
-  t.ok(fault() instanceof Error, 'should give an error')
+test('fault(format?[, values…])', function () {
+  assert.ok(fault() instanceof Error, 'should give an error')
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault()
     },
@@ -12,7 +13,7 @@ test('fault(format?[, values…])', function (t) {
     'should give a valid error without arguments'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault(null)
     },
@@ -20,7 +21,7 @@ test('fault(format?[, values…])', function (t) {
     'should give a valid error when format is not a string'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello Eric!')
     },
@@ -28,7 +29,7 @@ test('fault(format?[, values…])', function (t) {
     'should give a valid error when format is a string'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello Eric!')
     },
@@ -36,7 +37,7 @@ test('fault(format?[, values…])', function (t) {
     'should give a valid error when format is a string'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %s!', 'Eric')
     },
@@ -44,7 +45,7 @@ test('fault(format?[, values…])', function (t) {
     'should format a string'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %b!', 2)
     },
@@ -52,7 +53,7 @@ test('fault(format?[, values…])', function (t) {
     'should format a binary'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %c!', 64)
     },
@@ -60,7 +61,7 @@ test('fault(format?[, values…])', function (t) {
     'should format a character'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %f!', Math.PI)
     },
@@ -68,7 +69,7 @@ test('fault(format?[, values…])', function (t) {
     'should format a float'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %d!', 0x12)
     },
@@ -76,7 +77,7 @@ test('fault(format?[, values…])', function (t) {
     'should format a decimal'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %o!', 9)
     },
@@ -84,7 +85,7 @@ test('fault(format?[, values…])', function (t) {
     'should format an octal'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %x!', 255)
     },
@@ -92,13 +93,11 @@ test('fault(format?[, values…])', function (t) {
     'should format a lowercase hexadecimal'
   )
 
-  t.throws(
+  assert.throws(
     function () {
       throw fault('Hello %X!', 255)
     },
     /^Error: Hello 0xFF!$/,
     'should format an uppercase hexadecimal'
   )
-
-  t.end()
 })
