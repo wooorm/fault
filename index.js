@@ -1,4 +1,3 @@
-// @ts-expect-error
 import formatter from 'format'
 
 export const fault = Object.assign(create(Error), {
@@ -34,8 +33,7 @@ export function create(Constructor) {
    * @returns {Fault}
    */
   function FormattedError(format, ...values) {
-    /** @type {string} */
     const reason = format ? formatter(format, ...values) : format
-    return new Constructor(reason)
+    return new Constructor(/** @type {string} */ (reason))
   }
 }
